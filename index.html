@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Felices Fiestas | ZAAP-7D</title>
+
+<style>
+body {
+    margin: 0;
+    background: #faf6ed;
+}
+
+.tarjeta {
+    position: relative;
+    max-width: 650px;
+    margin: auto;
+}
+
+.tarjeta img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.reproductor {
+    position: absolute;
+    left: 22%;
+    top: 92.5%;
+    width: 54%;
+    height: 5.5%;
+    background: transparent;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.reproductor.activo {
+    box-shadow: 0 0 18px 5px #ffd700;
+    animation: brillo 2s infinite alternate;
+}
+
+@keyframes brillo {
+    from {
+        box-shadow: 0 0 8px 2px #ffd700;
+    }
+    to {
+        box-shadow: 0 0 20px 5px #ffd700;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="tarjeta">
+
+    <img src="zaap-7d.png"
+         alt="Felices Fiestas ZAAP-7D | Pemex y SLB">
+
+    <button id="boton"
+            class="reproductor"
+            aria-label="Reproducir música"
+            onclick="reproducir()">
+    </button>
+
+</main>
+
+<audio id="musica" loop preload="none">
+    <source src="navidad-musica.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const musica = document.getElementById("musica");
+const boton = document.getElementById("boton");
+
+async function reproducir() {
+    if (musica.paused) {
+        try {
+            await musica.play();
+            boton.classList.add("activo");
+            boton.setAttribute("aria-label", "Pausar música");
+        } catch (error) {
+            alert("No se pudo reproducir la música.");
+        }
+    } else {
+        musica.pause();
+        boton.classList.remove("activo");
+        boton.setAttribute("aria-label", "Reproducir música");
+    }
+}
+</script>
+
+</body>
+</html>
